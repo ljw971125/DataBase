@@ -1,0 +1,8 @@
+정렬을 위한 ORDER BY 절
+
+SELECT      *[column1, column2,...,columnN]
+FROM        table name
+WHERE      condition]
+ORDER BY   column name sorting;
+
+오름차순으로 정렬할 경우에는 ASC를 내림차순으로 정렬할 경우에는 DESC를 컬럼명 다음에 기술해야 합니다.
