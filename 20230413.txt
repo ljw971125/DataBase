@@ -1,0 +1,78 @@
+조인은 여러 테이블에 저장된 데이터를 한 번에 조회해야 할 필요가 있을 때 사용합니다.
+
+카디시안 곱(Cartesian Project)
+조인 조건을 생략한 경우 행의 모든 조합을 표시하는 '카디시안 곱'
+특별한 키워드 없이 select 문의 from 절에 사원 테이블과 부서 테이블을 콤마로 연결하여 연속하여 기술합니다.
+
+EQUI JOIN
+조인 대상 테이블에서 공통 컬럼을 = (equal) 비교를 통해 같은 값을 가지는 행을 연결하여 결과를 생성하는 조인 방법
+
+select table1.column, table2.column
+from   table1, table2  
+where  table1.column1 = table2.column2
+
+EQUI JOIN - NATURAL JOIN
+
+NATURAL_JOIN은 오라클 9i 이전에 EQUI JOIN으로 사용하던 것을 대신해서 사용하는 조인 방식입니다.
+
+select table1.column, table2.column
+from   table1 NATURAL JOIN table2;
+
+EQUI JOIN - JOIN ~ ON
+
+NATURAL JOIN의 조인 조건은 기본적으로 같은 이름을 가진 컬럼에 대해서 동일한 값을 갖는 로우끼리 결합하는 조인입니다.
+만일 임의의 조건을 지정하거나 조인할 컬럼을 지정하려면 ON 절을 사용합니다.
+
+NON-EQUI JOIN
+NON-EQUI JOIN은 조인 조건에 특정 범위 내에 있는지를 조사하기 위해서 사용합니다.
+where 절에 <,between a and b 와 같이 = 조건이 아닌 연산자를 사용합니다.
+
+SELF JOIN
+SELF JOIN은 하나의 테이블에 있는 컬럼끼리 연결해야 하는 조인이 필요한 경우 사용합니다.
+
+OUTER JOIN
+EQUI JOIN에서 양쪽 컬럼 값 중 하나가 NULL 이지만 조인 결과로 출력할 필요가 있는 경우에 OUTER JOIN을 사용합니다.
+
+WHERE 절의 조인 조건에서는 OUTER JOIN 연산자인(+) 기호를 사용합니다.
+
+select table1.column, table2.column
+from   table1, table2  
+where  table1.column1(+) = table2.column2
+또는
+where  table1.column1 = table2.column2(+)
+
+오른쪽에 (+)가 붙으면 LEFT OUTER JOIN
+왼쪽에 (+)가 붙으면 RIGHT OUTER JOIN
+
+OUTER JOIN절을 JOIN~ON 절과 함께 사용하기
+select table1.column, table2.column
+from   [RIGHT|LEFT|FULL] OUTER JOIN table2  
+where  table1.column1(+) = table2.column2
+
+서브쿼리 
+내부에 기술하는 쿼리를 서브쿼리라고 하고 외부에 기술하는 쿼리를 메인쿼리라고 합니다.
+서브쿼리에서 실행된 결과가 메인 쿼리에 전달되어 최종적인 결과를 출력합니다.
+
+SELECT select list
+FROM table
+WHERE expr operator
+      (SELECT select list)
+      FROM table
+      WHERE .....);
+
+다중 행 서브 쿼리 연산자★★★
+
+종류        의미
+IN          메인 쿼리의 비교 조건이 서브 쿼리의 결과 중에서 하나라도 일치하면 참입니다.
+ANY, SOME   메인 쿼리의 비교 조건이 서브 쿼리의 결과와 하나 이상이 일치하면 참입니다.
+ALL         메인 쿼리의 비교 조건이 서브 쿼리의 결과와 모든 값이 일치하면 참입니다.
+EXISTS      메인 쿼리의 비교 조건이 서브 쿼리의 결과 중에서 하나라도 존재하면 참입니다.
+
+ANY 연산자는 서브 쿼리가 반환하는 각각의 값과 비교합니다.
+<ANY는 최대값보다 작음을 나타내고
+>ANY는 최소값보다 큼을 나타냅니다.
+=ANY는 IN과 동일합니다.
+
+ALL 연산자는 값을 서브 쿼리에서 반환하는 모든 값과 비교합니다.
+<ALL는 최대값보다 큼을 나타내고
+>ALL는 최소값보다 작음을 나타냅니다.
