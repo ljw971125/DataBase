@@ -1,0 +1,104 @@
+테이블에 내용을 추가하는 INSERT 문
+
+INSERT문은 테이블에 데이터를 입력하기 위한 명령어
+
+INSERT INTO table_name(colume_name,....)
+VALUES(colume_value);
+
+입력되는 데이터 타입은 컬럼의 데이터 타입과 동일해야 하며
+입력되는 데이터 크기는 컬럼의 크기보다 작거나 동일해야 합니다.
+삽입할 컬럼의 데이터 타입이 문자, 날짜일 경우에는
+반드시 작은따옴표('')를 사용해야 함에 유의하기 바랍니다.
+
+NULL값을 갖는 로우 삽입
+데이터를 입력하는 시점에서 해당 컬럼 값을 모르거나 확정되지 않았을 경우에는 컬럼의 값으로 NULL를 입력합니다.
+
+다른 테이블에서 데이터 복사하기
+INSERT INTO 다음에 VALUES 절을 사용하는 대신에 서브 쿼리를
+사용하여 다른 테이블에서 데이터를 복사할 수 있습니다.
+
+INSERT INTO table[(colume1, colume2, ...)]
+SUBQUERY;
+
+테이블의 내용을 수정하는(UPDATE) 문
+UPDATE문은 테이블에 저장된 데이터를 수정하기 위한 DML 입니다.
+
+UPDATE  table_name
+SET     colume_name = value1,colume_name2 = value2,...
+WHERE   conditions;
+
+테이블의 내용을 삭제하는 DELETE 문
+DELETE문을 사용하여 테이블에서 기존에 저장되어 있던 데이터를 삭제할 수 있습니다.
+
+DELETE [FROM] table_name
+WHERE coonditions;
+
+트랜잭션 관리
+트랜잭션(transaction)은 데이터 처리에서 논리적으로 하나의 작업 단위를
+의미합니다.
+
+ALL or Nothing
+
+DML 작업이 성공적으로 처리되도록 하기 위해 COMMIT 명령 작업을
+취소하기 위해서는 ROLLBACK 명령을 실행합니다.
+
+테이블 구조를 만드는 CREATE TABLE 문
+DDL은 테이블의 구조 자체를 생성, 수정, 제거하도록 하는 명령문 집합이다.
+
+CREATE TABLE [schema] table_name
+(colume datatype [DEFAULT expression][column_constraint_clause],[....]);
+
+CREATE TABLE table_name[column][,column,...]
+AS subquery;
+
+무결성 제약 조건은 NOT NULL 조건만 복사하고
+기본키, 외래키와 같은 무결성 제약 조건은 복사되지 않습니다.
+
+서브 쿼리를 이용한 테이블을 생성할 때 데이터는 복사하지 않고 기존 테이블의
+구조만 복사할 수 있습니다.
+출력 결과가 항상 거짓인 조건을 WHERE 0=1과 같이 기술할 수 있습니다.
+
+테이블 구조를 변경하는 ALTER TABLE 문
+
+1) 컬럼 주기
+ALTER TABLE ... ADD 명령문을 사용하여 새로운 컬럼을 추가하며 추가되는 컬럼에도
+기본값을 지정할 수 있습니다.
+
+ALTER TABLE table_name
+ADD ([columnn_name   data_type   DEFAULT    expression],
+    [colume_name    data_type]...);
+
+2) 컬럼 변경
+ALTER TABLE ... MODIFY 명령문을 이용하여 테이블에서 컬럼의 타입,
+크기, 기본 값을 변경할 수 있습니다.
+
+ALTER TABLE table_name
+MODIFY ([columnn_name   data_type   DEFAULT    expression],
+        [colume_name    data_type]...);
+
+3) 컬럼 삭제
+ALTER TABLE ... DROP COLUMN 명령문을 사용하여 테이블 내의 특정 컬럼과 컬럼의
+데이터를 제거할 수 있다.
+
+ALTER TABLE table_name
+DROP COLUMN colume_name
+
+테이블명을 변경하는 RENAME 문
+테이블을 포함한 객체의 이름을 변경하는 DDL 명령문으로 RENAME 문을 제공합니다.
+RENAME old name TO new_name
+
+테이블을 제거하는 DROP TABLE 문
+DROP TABLE 명령문을 사용하여 기본 테이블과 데이터를 모두 제거합니다.
+
+삭제할 테이블의 기본키나 고유키를 다른 테이블에서 참조하고 있는 경우에는 삭제가 불가능 합니다.
+그렇기 때문에 참조하는 테이블(자석 테이블)을 먼저 제거해야 합니다.
+
+테이블의 모든 데이터를 제거하는 TRUNCATE TABLE 문
+TRUNCATE TABLE문은 기존에 사용하던 테이블의 모든 로우를 제거합니다.
+
+TRUNCATE TABLE table_name
+
+DDL - CREATE, ALTER, DROP
+DML - SELECT, INSERT, UPDATE, DELETE
+DCL - GRANT, REVOKE
+TCL - COMMIT ROLLBACK
